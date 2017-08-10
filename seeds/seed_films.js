@@ -10,8 +10,8 @@ function genUUID() {
 }
 
 
-if (fs.existsSync('seeds/test.json')) {
-	let tree = JSON.parse(fs.readFileSync('seeds/test.json', 'utf8'));
+if (fs.existsSync('./test.json')) {
+	let tree = JSON.parse(fs.readFileSync('./test.json', 'utf8'));
 
 	//DATA PROCESSING
 
@@ -29,42 +29,42 @@ if (fs.existsSync('seeds/test.json')) {
 
 
 
-	// //DATABASE SEEDING
-	// db.serialize(() => {
-	// 	let films = [];
+	//DATABASE SEEDING
+	db.serialize(() => {
+		let films = [];
 
-	// 	const filmTableFields = `id Str NOT NULL UNIQUE, `
-	// 						  + `name Str NOT NULL, `
-	// 						  + `abs_path Str NOT NULL, `
-	// 						  + `rel_path Str NOT NULL, `
-	// 						  + `ext Str NOT NULL, `
-	// 						  + `size Int, `
-	// 						  + `dur Int, `
-	// 						  + `kind Str, `
-	// 						  + `view_count Int, `
-	// 						  + `ls_time DATETIME DEFAULT CURRENT_TIMESTAMP, `
-	// 						  + `a_time DATETIME, `
-	// 						  + `m_time DATETIME, `
-	// 						  + `c_time DATETIME, `
-	// 						  + `b_time DATETIME, `
-	// 						  + `PRIMARY KEY(id)`
+		const filmTableFields = `id Str NOT NULL UNIQUE, `
+							  + `name Str NOT NULL, `
+							  + `abs_path Str NOT NULL, `
+							  + `rel_path Str NOT NULL, `
+							  + `ext Str NOT NULL, `
+							  + `size Int, `
+							  + `dur Int, `
+							  + `kind Str, `
+							  + `view_count Int, `
+							  + `ls_time DATETIME DEFAULT CURRENT_TIMESTAMP, `
+							  + `a_time DATETIME, `
+							  + `m_time DATETIME, `
+							  + `c_time DATETIME, `
+							  + `b_time DATETIME, `
+							  + `PRIMARY KEY(id)`
 
-	// 	// Create Tables
-	// 	db.run(`DROP TABLE IF EXISTS films;`);
-	// 	db.run(`CREATE TABLE films (${filmTableFields})`);
+		// Create Tables
+		db.run(`DROP TABLE IF EXISTS films;`);
+		db.run(`CREATE TABLE films (${filmTableFields})`);
 
 
-	// 	// Seed Films Table
-	// 	let fValues
+		// Seed Films Table
+		let fValues
 
-	// 	const fColumns = `id, name, abs_path, rel_path, ext, size, dur, kind, view_count, ls_time, a_time, m_time, c_time, b_time`
+		const fColumns = `id, name, abs_path, rel_path, ext, size, dur, kind, view_count, ls_time, a_time, m_time, c_time, b_time`
 
-	// 	// let id, name, abs_path, rel_path, ext, size, dur, kind, view_count, ls_time, a_time, m_time, c_time, b_time
+		// let id, name, abs_path, rel_path, ext, size, dur, kind, view_count, ls_time, a_time, m_time, c_time, b_time
 
-	// 	films.forEach((film) => {
-	// 		fValues = `'${film.id}', '${film.name}', '${film.abs_path}', '${film.rel_path}', '${film.ext}', '${film.size}', '${film.dur}', '${film.kind}', '${film.view_count}', '${film.ls_time}', '${film.a_time}', '${film.m_time}', '${film.c_time}', '${film.b_time}'`
-	// 		db.run("INSERT INTO films ("+fColumns+") VALUES ("+fValues+");");
-	// 	});
+		films.forEach((film) => {
+			fValues = `'${film.id}', '${film.name}', '${film.abs_path}', '${film.rel_path}', '${film.ext}', '${film.size}', '${film.dur}', '${film.kind}', '${film.view_count}', '${film.ls_time}', '${film.a_time}', '${film.m_time}', '${film.c_time}', '${film.b_time}'`
+			db.run("INSERT INTO films ("+fColumns+") VALUES ("+fValues+");");
+		});
 
 	});
 	db.close();
@@ -75,7 +75,7 @@ if (fs.existsSync('seeds/test.json')) {
 	// console.log(assets.length + ' assets');
 	// console.log(points.length + ' points');
 
-} else if(!fs.existsSync('seeds/test.json')) {
-	console.error('ERROR: seeds/test.json missing.');
+} else if(!fs.existsSync('./test.json')) {
+	console.error('ERROR: ./test.json missing.');
 	// console.error('Please re-install from git repo.');
 }

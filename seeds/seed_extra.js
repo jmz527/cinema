@@ -10,14 +10,14 @@ function genUUID() {
 }
 
 
-if (fs.existsSync('seeds/test.json')) {
-	let tree = JSON.parse(fs.readFileSync('seeds/test.json', 'utf8'));
+if (fs.existsSync('./test.json')) {
+	let tree = JSON.parse(fs.readFileSync('./test.json', 'utf8'));
 
 	//DATA PROCESSING
 
 	//PRE-SEED ROUTINE
 
-	//DATABASE SEEDING
+	//DATABASE TABLE CREATION
 	db.serialize(() => {
 		let seasons = [], series = [];
 
@@ -42,52 +42,37 @@ if (fs.existsSync('seeds/test.json')) {
 								   + `PRIMARY KEY(id)`
 
 		// Create Tables
-		// db.run("DROP TABLE IF EXISTS users;");
-		// db.run("CREATE TABLE users ("+uTableFields+")");
-		// db.run("DROP TABLE IF EXISTS assets;");
-		// db.run("CREATE TABLE assets ("+aTableFields+");");
-		// db.run("DROP TABLE IF EXISTS points;");
-		// db.run("CREATE TABLE points ("+pTableFields+");");
+		db.run("DROP TABLE IF EXISTS seasons;");
+		db.run("CREATE TABLE seasons ("+seasonTableFields+")");
+		db.run("DROP TABLE IF EXISTS series;");
+		db.run("CREATE TABLE series ("+seriesTableFields+");");
+		db.run("DROP TABLE IF EXISTS season_ref;");
+		db.run("CREATE TABLE season_ref ("+seasonRefTableFields+");");
 
-	// // Seed Users Table
-	// var uValues, salt, hash, splitEmail, cRef, count = 0;
-	// const uColumns = "ID, email, name, pw, clientRef, updatedTS", saltRounds = 10, pw = 'password';
 
-	// users.forEach(function(user) {
-	   //  salt = bcrypt.genSaltSync(saltRounds),
-	//   hash = bcrypt.hashSync(pw, salt),
-	//   splitEmail = user.email.split('@');
-	//   cRef = (count<17)?"07a2a8fd-4c92-480d-99ce-0e9b0107ce10":"";
-	//   uValues = "'"+genUUID()+"', '"+splitEmail[0]+'[@'+splitEmail[1]+']'+"', '"+user.name+"', '"+hash+"', '"+cRef+"', CURRENT_TIMESTAMP";
+		//DATABASE SEEDING
 
-			// db.run("INSERT INTO users ("+uColumns+") VALUES ("+uValues+");");
+		// Seed Seasons Table
+		let seaValues
 
-	//   count++;
-	// });
+		const seaColumns = `id, num, episode_count, years, view_count, series_ref`
 
-	// // Seed Assets Table
-	// var aColumns, aValues;
-	//     aColumns = "ID, parentId, name, acceptsNewPoints, collectData, hasPoints, hasChildren";
+		seasons.forEach((season) => {
+			seaValues = `'${season.id}', '${season.num}', '${season.episode_count}', '${season.years}', '${season.view_count}', '${season.series_ref}'`
+			db.run("INSERT INTO seasons ("+seaColumns+") VALUES ("+seaValues+");");
+		});
 
-	// assets.forEach(function(asset) {
-	//   aValues = "'"+asset.id+"', '"+asset.parentId+"', '"+asset.name+"', "+asset.acceptsNewPoints+", "+asset.collectData+", "+asset.hasPoints+", "+asset.hasChildren;
-	//   db.run("INSERT INTO assets ("+aColumns+") VALUES ("+aValues+");");
-	// });
+		// Seed Series Table
+		let serValues
 
-	// // Seed Points Table
-	// var pColumns, pValues;
-	//     pColumns = "key, assetKey, name, description, label, scaling, isWeakRef, hasWeakRefs, originalUrl"
-	//       +", compression, compressionValue, compressionUnit, stepByStep, ruleViolationFlagging, inboundScalingFactor"
-	//       +", uom, unitClass, value, weakRefUrls, tags, clonePointUserKey, clonePointAssetKey";
+		const serColums = `id, name, season_count, years, active`
 
-	// points.forEach(function(point) {
-	//   pValues = "'"+point.key+"', '"+point.assetKey+"', '"+point.name+"', '"+point.description+"', '"+point.label+"', "+point.scaling
-	//       +", "+point.isWeakRef+", "+point.hasWeakRefs+", '"+point.originalUrl+"', "+point.compression+", "+point.compressionValue+", '"+point.compressionUnit
-	//       +"', "+point.stepByStep+", "+point.ruleViolationFlagging+", "+point.inboundScalingFactor+", '"+point.uom+"', '"+point.unitClass+"', "+point.value
-	//       +", '"+point.weakRefUrls+"', '"+point.tags+"', '"+point.clonePointUserKey+"', '"+point.clonePointAssetKey+"'";
-	//   db.run("INSERT INTO points ("+pColumns+") VALUES ("+pValues+");");
-	// });
+		series.forEach((seri) => {
+			serValues = `'${seri.id}', '${seri.name}', '${seri.season_count}', '${seri.years}', '${seri.active}'`
+			db.run("INSERT INTO series ("+serColumns+") VALUES ("+serValues+");");
+		});
 
+		// Seed SeasonRefs Table
 
 
 
@@ -101,7 +86,7 @@ if (fs.existsSync('seeds/test.json')) {
 	// console.log(assets.length + ' assets');
 	// console.log(points.length + ' points');
 
-} else if(!fs.existsSync('seeds/test.json')) {
-	console.error('ERROR: seeds/test.json missing.');
+} else if(!fs.existsSync('./test.json')) {
+	console.error('ERROR: ./test.json missing.');
 	// console.error('Please re-install from git repo.');
 }
