@@ -39,7 +39,7 @@ node index.js
 ```
 
 # Planning & Wireframes:
-
+![Whiteboard Planning](/cinema_erd.png)
 
 # Issues:
 

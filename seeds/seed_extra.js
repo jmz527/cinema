@@ -19,27 +19,35 @@ if (fs.existsSync('seeds/test.json')) {
 
 	//DATABASE SEEDING
 	db.serialize(() => {
-		let 
+		let seasons = [], series = [];
 
+		const seasonTableFields = `id Str NOT NULL UNIQUE, `
+								+ `num Int NOT NULL, `
+								+ `episode_count Int, `
+								+ `years Str, `
+								+ `view_count Int, `
+								+ `series_ref Str NOT NULL, `
+								+ `PRIMARY KEY(id)`
 
+		const seriesTableFields = `id Str NOT NULL UNIQUE, `
+								+ `name Str NOT NULL, `
+								+ `season_count Int NOT NULL, `
+								+ `years Str, `
+								+ `active Int, `
+								+ `PRIMARY KEY(id)`
 
-	// var uTableFields, aTableFields, pTableFields;
-	//     uTableFields = "ID Str NOT NULL UNIQUE, email Str NOT NULL, name Str NOT NULL, pw Str NOT NULL UNIQUE"
-	//       +", clientRef Str, updatedTS DATETIME, createdTS DATETIME DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY(ID)";
-	//     aTableFields = "ID Str NOT NULL UNIQUE, parentId Str, name Str NOT NULL, acceptsNewPoints Int, collectData Int"
-	//       +", hasPoints Int, hasChildren Int, createdTS DATETIME DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY(ID)";
-	//     pTableFields = "key Str NOT NULL UNIQUE, assetKey Str NOT NULL, name Str NOT NULL, label Str, scaling Int, tags Str"
-	//       +", isWeakRef Int, hasWeakRefs Int, weakRefUrls Str, originalUrl Str, compression Int, compressionValue Int"
-	//       +", compressionUnit Str, stepByStep Int, ruleViolationFlagging Int, inboundScalingFactor Int, description Str"
-	//       +", uom Str, unitClass Str, value Int, clonePointUserKey Str, clonePointAssetKey Str, createdTS DATETIME DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY(key)";
+		const seasonRefTableFields = `id Str NOT NULL UNIQUE, `
+								   + `film_ref Str NOT NULL, `
+								   + `season_ref Str NOT NULL, `
+								   + `PRIMARY KEY(id)`
 
-	// // Create Tables
-	// db.run("DROP TABLE IF EXISTS users;");
-	// db.run("CREATE TABLE users ("+uTableFields+")");
-	// db.run("DROP TABLE IF EXISTS assets;");
-	// db.run("CREATE TABLE assets ("+aTableFields+");");
-	// db.run("DROP TABLE IF EXISTS points;");
-	// db.run("CREATE TABLE points ("+pTableFields+");");
+		// Create Tables
+		// db.run("DROP TABLE IF EXISTS users;");
+		// db.run("CREATE TABLE users ("+uTableFields+")");
+		// db.run("DROP TABLE IF EXISTS assets;");
+		// db.run("CREATE TABLE assets ("+aTableFields+");");
+		// db.run("DROP TABLE IF EXISTS points;");
+		// db.run("CREATE TABLE points ("+pTableFields+");");
 
 	// // Seed Users Table
 	// var uValues, salt, hash, splitEmail, cRef, count = 0;
