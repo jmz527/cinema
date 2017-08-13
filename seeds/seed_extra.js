@@ -65,7 +65,7 @@ if (fs.existsSync('./test.json')) {
 		// Seed Series Table
 		let serValues
 
-		const serColums = `id, name, season_count, years, active`
+		const serColumns = `id, name, season_count, years, active`
 
 		series.forEach((seri) => {
 			serValues = `'${seri.id}', '${seri.name}', '${seri.season_count}', '${seri.years}', '${seri.active}'`
@@ -73,6 +73,9 @@ if (fs.existsSync('./test.json')) {
 		});
 
 		// Seed SeasonRefs Table
+		let refValues
+
+		const refColumns = `id, film_ref, season_ref`
 
 
 

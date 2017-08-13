@@ -38,14 +38,24 @@ With the database populated, you can now start up the sqlite api with express:
 node index.js
 ```
 
-# Planning & Wireframes:
-![Whiteboard Planning](/cinema_erd.png)
-
 # Issues:
 
 
 # TODO:
 
+-- DATABASE SETUP
+
+-- ARCHIVING PROCEDURES
+
+-- SEARCH, SORT, FILTERING DB QUERIES
+
+-- CATEGORIES & TAGGING
+
+-- PLAY COMMAND
+
+
+# Planning & Wireframes:
+![Whiteboard Planning](/cinema_erd.png)
 
 # Directory Tree:
 
