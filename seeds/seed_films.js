@@ -2,7 +2,9 @@ const sqlite3 = require(`sqlite3`).verbose()
 const fs = require("fs")
 const path = require(`path`)
 const db = new sqlite3.Database(`cinema.db`)
-const jsonFile = process.argv[2] || `./test.json`
+const jsonFile = process.argv[2] || `./deep_trailers_map.json`
+
+// TODO: Account for film series
 
 function genUUID() {
 	return `xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx`.replace(/[xy]/g, function(c) {
@@ -113,7 +115,9 @@ if (fs.existsSync(jsonFile)) {
 		const fColumns = `id, name, abs_path, rel_path, ext, size, dur, kind, view_count, ls_time, a_time, m_time, c_time, b_time`
 
 		films.forEach((film) => {
-			fValues = `'${film.id}', '${film.name}', '${film.abs_path}', '${film.rel_path}', '${film.ext}', '${film.size}', '${film.dur}', '${film.kind}', '${film.view_count}', '${film.ls_time}', '${film.a_time}', '${film.m_time}', '${film.c_time}', '${film.b_time}'`
+			fValues = `'${film.id}', '${film.name}', '${film.abs_path}', '${film.rel_path}', '${film.ext}', '${film.size}', '${film.dur}',`
+					+` '${film.kind}', '${film.view_count}', '${film.ls_time}', '${film.a_time}', '${film.m_time}', '${film.c_time}', '${film.b_time}'`
+
 			db.run(`INSERT INTO films (${fColumns}) VALUES (${fValues});`)
 		})
 

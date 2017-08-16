@@ -1,6 +1,7 @@
 const sqlite3 = require('sqlite3').verbose()
 const fs = require("fs")
 const db = new sqlite3.Database('cinema.db')
+const jsonFile = process.argv[2]
 
 function genUUID() {
 	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -10,8 +11,8 @@ function genUUID() {
 }
 
 
-if (fs.existsSync('./test.json')) {
-	let tree = JSON.parse(fs.readFileSync('./test.json', 'utf8'));
+if (fs.existsSync(jsonFile)) {
+	let tree = JSON.parse(fs.readFileSync(jsonFile, 'utf8'));
 
 	//DATA PROCESSING
 
@@ -89,7 +90,7 @@ if (fs.existsSync('./test.json')) {
 	// console.log(assets.length + ' assets');
 	// console.log(points.length + ' points');
 
-} else if(!fs.existsSync('./test.json')) {
+} else if(!fs.existsSync(jsonFile)) {
 	console.error('ERROR: ./test.json missing.');
 	// console.error('Please re-install from git repo.');
 }
