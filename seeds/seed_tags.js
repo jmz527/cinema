@@ -20,24 +20,24 @@ if (fs.existsSync(jsonFile)) {
 
 	//DATABASE TABLE CREATION
 	db.serialize(() => {
-		let tags = []
+		let tags = [`tv`, `travel`, `trailers`, `stand-up`, `news`, `music video`, `kung fu`, `anime`, `documentary`, `action`, `classic`, `comedy`, `drama`, `fantasy`, `thrillers`, `horror`, `foreign`, `indie`, `pixar`, `romcom`, `scifi`, `shorts`]
 
 		const tagTableFields = `id Str NOT NULL UNIQUE, `
 							 + `name Str NOT NULL, `
 							 + `film_count Int, `
 							 + `PRIMARY KEY(id)`
 
-		const tagRefTableFields = `id Str NOT NULL UNIQUE, `
-								+ `film_ref Str NOT NULL, `
-								+ `tag_ref Str NOT NULL, `
-								+ `tag_type Str NOT NULL, `
-								+ `PRIMARY KEY(id)`
+		// const tagRefTableFields = `id Str NOT NULL UNIQUE, `
+		// 						+ `film_ref Str NOT NULL, `
+		// 						+ `tag_ref Str NOT NULL, `
+		// 						+ `tag_type Str NOT NULL, `
+		// 						+ `PRIMARY KEY(id)`
 
 		// Create Tables
 		db.run("DROP TABLE IF EXISTS tags;");
 		db.run("CREATE TABLE tags ("+tagTableFields+")");
-		db.run("DROP TABLE IF EXISTS tag_ref;");
-		db.run("CREATE TABLE tag_ref ("+tagRefTableFields+");");
+		// db.run("DROP TABLE IF EXISTS tag_ref;");
+		// db.run("CREATE TABLE tag_ref ("+tagRefTableFields+");");
 
 
 		//DATABASE SEEDING
@@ -48,14 +48,14 @@ if (fs.existsSync(jsonFile)) {
 		const tagColumns = `id, name, film_count`
 
 		tags.forEach((tag) => {
-			tagValues = `'${tag.id}', '${tag.name}', '${tag.film_count}'`
+			tagValues = `'${genUUID()}', '${tag}', '${0}'`
 			db.run("INSERT INTO tags ("+tagColumns+") VALUES ("+tagValues+");");
 		});
 
-		// Seed TagRefs Table
-		let refValues
+		// // Seed TagRefs Table
+		// let refValues
 
-		const refColumns = `id, film_ref, tag_ref, tag_type`
+		// const refColumns = `id, film_ref, tag_ref, tag_type`
 
 
 	});
@@ -63,9 +63,7 @@ if (fs.existsSync(jsonFile)) {
 
 	// Log Results
 	console.log('Finished DB Seed!')
-	// console.log(users.length + ' users');
-	// console.log(assets.length + ' assets');
-	// console.log(points.length + ' points');
+	console.log(tags.length + ' tags');
 
 } else if(!fs.existsSync(jsonFile)) {
 	console.error('ERROR: ./test.json missing.');
