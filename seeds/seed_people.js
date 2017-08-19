@@ -1,14 +1,9 @@
-const sqlite3 = require('sqlite3').verbose()
 const fs = require("fs")
+const sqlite3 = require('sqlite3').verbose()
+const main_util = require('../util/main_util')
+
 const db = new sqlite3.Database('cinema.db')
 const jsonFile = process.argv[2]
-
-function genUUID() {
-	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-		var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
-		return v.toString(16);
-	});
-}
 
 
 if (fs.existsSync(jsonFile)) {
@@ -263,7 +258,7 @@ if (fs.existsSync(jsonFile)) {
 		const peopleColumns = `id, name, sex, roles, born, died`
 
 		people.forEach((person) => {
-			peopleValues = `'${genUUID()}', '${person.name}', '${person.sex}', '${person.roles}', '${person.born}', '${person.died}'`
+			peopleValues = `'${main_util.genUUID()}', '${person.name}', '${person.sex}', '${person.roles}', '${person.born}', '${person.died}'`
 			db.run("INSERT INTO people ("+peopleColumns+") VALUES ("+peopleValues+");");
 		});
 

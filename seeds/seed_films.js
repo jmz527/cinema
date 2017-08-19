@@ -1,18 +1,12 @@
-const sqlite3 = require(`sqlite3`).verbose()
 const fs = require("fs")
 const path = require(`path`)
+const sqlite3 = require(`sqlite3`).verbose()
+const main_util = require('../util/main_util')
+
 const db = new sqlite3.Database(`cinema.db`)
 const jsonFile = process.argv[2] || `./deep_trailers_map.json`
 
 // TODO: Account for film series
-
-function genUUID() {
-	return `xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx`.replace(/[xy]/g, function(c) {
-		var r = Math.random()*16|0, v = c == `x` ? r : (r&0x3|0x8);
-		return v.toString(16);
-	});
-}
-
 
 if (fs.existsSync(jsonFile)) {
 	let tree, films = []
@@ -63,7 +57,7 @@ if (fs.existsSync(jsonFile)) {
 			// 	meta: thisDir.fileStats[file].meta
 			// })
 
-			id = genUUID()
+			id = main_util.genUUID()
 			name = thisDir.fileStats[file].meta.kMDItemDisplayName
 			abs_path = thisDir.fileStats[file].relPath
 			rel_path = null
