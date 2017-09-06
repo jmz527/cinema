@@ -258,7 +258,7 @@ if (fs.existsSync(jsonFile)) {
 		const peopleColumns = `id, name, sex, roles, born, died`
 
 		people.forEach((person) => {
-			peopleValues = `'${main_util.genUUID()}', '${person.name}', '${person.sex}', '${person.roles}', '${person.born}', '${person.died}'`
+			peopleValues = `'${main_util.methods.genUUID()}', '${person.name}', '${person.sex}', '${person.roles}', '${person.born}', '${person.died}'`
 			db.run("INSERT INTO people ("+peopleColumns+") VALUES ("+peopleValues+");");
 		});
 

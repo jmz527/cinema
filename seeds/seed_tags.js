@@ -43,7 +43,7 @@ if (fs.existsSync(jsonFile)) {
 		const tagColumns = `id, name, film_count`
 
 		tags.forEach((tag) => {
-			tagValues = `'${main_util.genUUID()}', '${tag}', '${0}'`
+			tagValues = `'${main_util.methods.genUUID()}', '${tag}', '${0}'`
 			db.run("INSERT INTO tags ("+tagColumns+") VALUES ("+tagValues+");");
 		});
 

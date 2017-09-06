@@ -57,7 +57,7 @@ if (fs.existsSync(jsonFile)) {
 			// 	meta: thisDir.fileStats[file].meta
 			// })
 
-			id = main_util.genUUID()
+			id = main_util.methods.genUUID()
 			name = thisDir.fileStats[file].meta.kMDItemDisplayName
 			abs_path = thisDir.fileStats[file].relPath
 			rel_path = null

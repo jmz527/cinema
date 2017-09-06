@@ -3,10 +3,17 @@
   "version": "1.0.0",
   "description": "File management system for my movies",
   "main": "index.js",
+  "scripts": {
+    "test": "node_modules/.bin/mocha"
+  },
   "repository": "git@github.com:jmz527/cinema.git",
   "author": "James Rutledge <jarutledge2@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "chai": "^4.1.2",
+    "html-minifier": "^3.5.3",
+    "js-beautify": "^1.6.14",
+    "mocha": "^3.5.0",
     "sqlite3": "^3.1.9"
   }
 }
